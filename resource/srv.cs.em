@@ -1,8 +1,8 @@
 @{
 from rosidl_generator_dart import get_field_name
-from rosidl_generator_dart import get_dotnet_type
-from rosidl_generator_dart import get_dotnet_type_for_message
-from rosidl_generator_dart import get_builtin_dotnet_type
+from rosidl_generator_dart import get_dart_type
+from rosidl_generator_dart import get_dart_type_for_message
+from rosidl_generator_dart import get_builtin_dart_type
 from rosidl_generator_dart import constant_value_to_dotnet
 
 from rosidl_parser.definition import AbstractNestedType
@@ -16,8 +16,8 @@ from rosidl_parser.definition import NamespacedType
 
 type_name = service.namespaced_type.name
 
-request_type_name = get_dotnet_type_for_message(service.request_message)
-response_type_name = get_dotnet_type_for_message(service.response_message)
+request_type_name = get_dart_type_for_message(service.request_message)
+response_type_name = get_dart_type_for_message(service.response_message)
 
 srv_typename = '%s__%s' % ('__'.join(service.namespaced_type.namespaces), type_name)
 }

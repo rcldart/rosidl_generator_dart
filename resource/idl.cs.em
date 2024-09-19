@@ -2,7 +2,7 @@
 // with input from @(package_name):@(interface_path)
 // generated code does not contain a copyright notice
 @{
-from rosidl_generator_dart import get_dotnet_type_for_message
+from rosidl_generator_dart import get_dart_type_for_message
 }@
 @
 @#######################################################################
@@ -91,7 +91,7 @@ TEMPLATE(
 TEMPLATE(
     'msg.cs.em',
     package_name=package_name, interface_path=interface_path, message=action.send_goal_service.request_message,
-    action_interface='global::ROS2.IRosActionSendGoalRequest<global::%s>' % get_dotnet_type_for_message(action.goal)
+    action_interface='global::ROS2.IRosActionSendGoalRequest<global::%s>' % get_dart_type_for_message(action.goal)
 )
 }@
 
@@ -121,7 +121,7 @@ TEMPLATE(
 TEMPLATE(
     'msg.cs.em',
     package_name=package_name, interface_path=interface_path, message=action.get_result_service.response_message,
-    action_interface='global::ROS2.IRosActionGetResultResponse<global::%s>' % get_dotnet_type_for_message(action.result)
+    action_interface='global::ROS2.IRosActionGetResultResponse<global::%s>' % get_dart_type_for_message(action.result)
 )
 }@
 
@@ -135,7 +135,7 @@ TEMPLATE(
 TEMPLATE(
     'msg.cs.em',
     package_name=package_name, interface_path=interface_path, message=action.feedback_message,
-    action_interface='global::ROS2.IRosActionFeedbackMessage<global::%s>' % get_dotnet_type_for_message(action.feedback)
+    action_interface='global::ROS2.IRosActionFeedbackMessage<global::%s>' % get_dart_type_for_message(action.feedback)
 )
 }@
 

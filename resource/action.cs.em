@@ -1,8 +1,8 @@
 @{
 from rosidl_generator_dart import get_field_name
-from rosidl_generator_dart import get_dotnet_type
-from rosidl_generator_dart import get_dotnet_type_for_message
-from rosidl_generator_dart import get_builtin_dotnet_type
+from rosidl_generator_dart import get_dart_type
+from rosidl_generator_dart import get_dart_type_for_message
+from rosidl_generator_dart import get_builtin_dart_type
 from rosidl_generator_dart import constant_value_to_dotnet
 
 from rosidl_parser.definition import AbstractNestedType
@@ -16,15 +16,15 @@ from rosidl_parser.definition import NamespacedType
 
 type_name = action.namespaced_type.name
 
-goal_type_name = get_dotnet_type_for_message(action.goal)
-result_type_name = get_dotnet_type_for_message(action.result)
-feedback_type_name = get_dotnet_type_for_message(action.feedback)
+goal_type_name = get_dart_type_for_message(action.goal)
+result_type_name = get_dart_type_for_message(action.result)
+feedback_type_name = get_dart_type_for_message(action.feedback)
 
-send_goal_request_type_name = get_dotnet_type_for_message(action.send_goal_service.request_message)
-send_goal_response_type_name = get_dotnet_type_for_message(action.send_goal_service.response_message)
-get_result_request_type_name = get_dotnet_type_for_message(action.get_result_service.request_message)
-get_result_response_type_name = get_dotnet_type_for_message(action.get_result_service.response_message)
-feedback_message_type_name = get_dotnet_type_for_message(action.feedback_message)
+send_goal_request_type_name = get_dart_type_for_message(action.send_goal_service.request_message)
+send_goal_response_type_name = get_dart_type_for_message(action.send_goal_service.response_message)
+get_result_request_type_name = get_dart_type_for_message(action.get_result_service.request_message)
+get_result_response_type_name = get_dart_type_for_message(action.get_result_service.response_message)
+feedback_message_type_name = get_dart_type_for_message(action.feedback_message)
 
 action_typename = '%s__%s' % ('__'.join(action.namespaced_type.namespaces), type_name)
 }

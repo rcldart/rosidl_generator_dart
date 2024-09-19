@@ -40,7 +40,7 @@ class Underscorer(string.Formatter):
         return super(Underscorer, self).format_field(value, spec)
 
 
-def generate_dotnet(generator_arguments_file, typesupport_impls):
+def generate_dart(generator_arguments_file, typesupport_impls):
     mapping = {
         'idl.cs.em': '%s.cs',
         'idl.c.em': '%s.c',
@@ -88,8 +88,9 @@ def constant_value_to_dotnet(type_, value):
         return '"%s"' % escape_string(value)
 
     assert False, "unknown constant type '%s'" % type_
-
-def get_builtin_dotnet_type(type_, use_primitives=True):
+# TODO: 
+### convert to dart types from ffi package
+def get_builtin_dart_type(type_, use_primitives=True):
     if type_ == 'boolean':
         return 'bool' if use_primitives else 'System.Boolean'
 
@@ -134,15 +135,15 @@ def get_builtin_dotnet_type(type_, use_primitives=True):
 
     assert False, "unknown type '%s'" % type_
 
-def get_dotnet_type(type_, use_primitives=True):
+def get_dart_type(type_, use_primitives=True):
     if isinstance(type_, AbstractGenericString):
         return 'System.String'
     if isinstance(type_, NamespacedType):
         return '.'.join(type_.namespaced_name())
 
-    return get_builtin_dotnet_type(type_.typename, use_primitives=use_primitives)
+    return get_builtin_dart_type(type_.typename, use_primitives=use_primitives)
 
-def get_dotnet_type_for_message(message):
+def get_dart_type_for_message(message):
     return '%s.%s' % (
         '.'.join(message.structure.namespaced_type.namespaces),
         message.structure.namespaced_type.name)

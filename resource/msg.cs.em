@@ -2,8 +2,8 @@
 from ast import literal_eval
 
 from rosidl_generator_dart import get_field_name
-from rosidl_generator_dart import get_dotnet_type
-from rosidl_generator_dart import get_builtin_dotnet_type
+from rosidl_generator_dart import get_dart_type
+from rosidl_generator_dart import get_builtin_dart_type
 from rosidl_generator_dart import constant_value_to_dotnet
 
 from rosidl_parser.definition import AbstractNestedType
@@ -44,14 +44,14 @@ public class @(type_name) : global::ROS2.IRosMessage@(additional_interfaces_str)
 @[    if isinstance(member.type, Array)]@
 @[          if isinstance(member.type.value_type, AbstractString)]@
 @[              if member.has_annotation('default')]@
-        @(get_field_name(type_name, member.name)) = new @(get_dotnet_type(member.type.value_type))[@(member.type.size)]
+        @(get_field_name(type_name, member.name)) = new @(get_dart_type(member.type.value_type))[@(member.type.size)]
         {
 @[                  for val in literal_eval(member.get_annotation_value('default')['value'])]@
             @(constant_value_to_dotnet(member.type.value_type, val)),
 @[                  end for]@
         };
 @[              else]@
-        @(get_field_name(type_name, member.name)) = new @(get_dotnet_type(member.type.value_type))[@(member.type.size)];
+        @(get_field_name(type_name, member.name)) = new @(get_dart_type(member.type.value_type))[@(member.type.size)];
         for (var i__local_variable = 0; i__local_variable < @(member.type.size); i__local_variable++)
         {
             @(get_field_name(type_name, member.name))[i__local_variable] = "";
@@ -59,35 +59,35 @@ public class @(type_name) : global::ROS2.IRosMessage@(additional_interfaces_str)
 @[              end if]@
 @[          elif isinstance(member.type.value_type, BasicType)]@
 @[              if member.has_annotation('default')]@
-        @(get_field_name(type_name, member.name)) = new @(get_dotnet_type(member.type.value_type))[@(member.type.size)]
+        @(get_field_name(type_name, member.name)) = new @(get_dart_type(member.type.value_type))[@(member.type.size)]
         {
 @[                  for val in literal_eval(member.get_annotation_value('default')['value'])]@
             @(constant_value_to_dotnet(member.type.value_type, val)),
 @[                  end for]@
         };
 @[              else]@
-        @(get_field_name(type_name, member.name)) = new @(get_dotnet_type(member.type.value_type))[@(member.type.size)];
+        @(get_field_name(type_name, member.name)) = new @(get_dart_type(member.type.value_type))[@(member.type.size)];
 @# Basic types get initialized by the array constructor.
 @[              end if]@
 @[          elif isinstance(member.type.value_type, AbstractWString)]@
 // TODO: Unicode types are not supported
 @[          else]@
-        @(get_field_name(type_name, member.name)) = new @(get_dotnet_type(member.type.value_type))[@(member.type.size)];
+        @(get_field_name(type_name, member.name)) = new @(get_dart_type(member.type.value_type))[@(member.type.size)];
         for (var i__local_variable = 0; i__local_variable < @(member.type.size); i__local_variable++)
         {
-            @(get_field_name(type_name, member.name))[i__local_variable] = new @(get_dotnet_type(member.type.value_type))();
+            @(get_field_name(type_name, member.name))[i__local_variable] = new @(get_dart_type(member.type.value_type))();
         }
 @[          end if]@
 @[    elif isinstance(member.type, AbstractSequence)]@
 @[        if member.has_annotation('default')]@
-        @(get_field_name(type_name, member.name)) = new List<@(get_dotnet_type(member.type.value_type))>()
+        @(get_field_name(type_name, member.name)) = new List<@(get_dart_type(member.type.value_type))>()
         {
 @[            for val in literal_eval(member.get_annotation_value('default')['value'])]@
             @(constant_value_to_dotnet(member.type.value_type, val)),
 @[            end for]@
         };
 @[        else]@
-        @(get_field_name(type_name, member.name)) = new List<@(get_dotnet_type(member.type.value_type))>();
+        @(get_field_name(type_name, member.name)) = new List<@(get_dart_type(member.type.value_type))>();
 @[        end if]@
 @[    elif isinstance(member.type, AbstractWString)]@
 // TODO: Unicode types are not supported
@@ -102,7 +102,7 @@ public class @(type_name) : global::ROS2.IRosMessage@(additional_interfaces_str)
         @(get_field_name(type_name, member.name)) = "";
 @[        end if]@
 @[    else]@
-        @(get_field_name(type_name, member.name)) = new @(get_dotnet_type(member.type))();
+        @(get_field_name(type_name, member.name)) = new @(get_dart_type(member.type))();
 @[    end if]@
 @[end for]@
     }
@@ -225,11 +225,11 @@ public class @(type_name) : global::ROS2.IRosMessage@(additional_interfaces_str)
         private delegate IntPtr NativeReadField@(get_field_name(type_name, member.name))Type(IntPtr messageHandle);
 @[            else]@
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    private delegate @(get_dotnet_type(member.type.value_type)) NativeReadField@(get_field_name(type_name, member.name))Type(
+    private delegate @(get_dart_type(member.type.value_type)) NativeReadField@(get_field_name(type_name, member.name))Type(
         IntPtr messageHandle);
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void NativeWriteField@(get_field_name(type_name, member.name))Type(
-        IntPtr messageHandle, @(get_dotnet_type(member.type.value_type)) value);
+        IntPtr messageHandle, @(get_dart_type(member.type.value_type)) value);
 @[            end if]@
 @[   elif isinstance(member.type, AbstractWString)]@
 // TODO: Unicode types are not supported
@@ -243,12 +243,12 @@ public class @(type_name) : global::ROS2.IRosMessage@(additional_interfaces_str)
         IntPtr messageHandle, [MarshalAs (UnmanagedType.LPStr)] string value);
 @[        else]@
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    private delegate @(get_dotnet_type(member.type)) NativeReadField@(get_field_name(type_name, member.name))Type(
+    private delegate @(get_dart_type(member.type)) NativeReadField@(get_field_name(type_name, member.name))Type(
         IntPtr messageHandle);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void NativeWriteField@(get_field_name(type_name, member.name))Type(
-        IntPtr messageHandle, @(get_dotnet_type(member.type)) value);
+        IntPtr messageHandle, @(get_dart_type(member.type)) value);
 @[        end if]@
     private static NativeReadField@(get_field_name(type_name, member.name))Type native_read_field_@(member.name) = null;
 
@@ -274,7 +274,7 @@ public class @(type_name) : global::ROS2.IRosMessage@(additional_interfaces_str)
 @[for member in message.structure.members]@
 @[    if isinstance(member.type, Array)]@
       {
-          @(get_field_name(type_name, member.name)) = new @(get_dotnet_type(member.type.value_type))[@(member.type.size)];
+          @(get_field_name(type_name, member.name)) = new @(get_dart_type(member.type.value_type))[@(member.type.size)];
           for (int i__local_variable = 0; i__local_variable < @(member.type.size); i__local_variable++)
           {
 @[        if isinstance(member.type.value_type, BasicType)]@
@@ -285,7 +285,7 @@ public class @(type_name) : global::ROS2.IRosMessage@(additional_interfaces_str)
 @[        elif isinstance(member.type.value_type, AbstractWString)]@
               // TODO: Unicode types are not supported
 @[        else]@
-              @(get_field_name(type_name, member.name))[i__local_variable] = new @(get_dotnet_type(member.type.value_type))();
+              @(get_field_name(type_name, member.name))[i__local_variable] = new @(get_dart_type(member.type.value_type))();
               @(get_field_name(type_name, member.name))[i__local_variable].__ReadFromHandle(native_get_field_@(member.name)_message(messageHandle, i__local_variable));
 @[        end if]
           }
@@ -293,7 +293,7 @@ public class @(type_name) : global::ROS2.IRosMessage@(additional_interfaces_str)
 @[    elif isinstance(member.type, AbstractSequence)]@
       {
           int size__local_variable = native_getsize_field_@(member.name)_message(messageHandle);
-          @(get_field_name(type_name, member.name)) = new List<@(get_dotnet_type(member.type.value_type))>(size__local_variable);
+          @(get_field_name(type_name, member.name)) = new List<@(get_dart_type(member.type.value_type))>(size__local_variable);
           for (int i__local_variable = 0; i__local_variable < size__local_variable; i__local_variable++)
           {
 @[        if isinstance(member.type.value_type, BasicType)]@
@@ -304,7 +304,7 @@ public class @(type_name) : global::ROS2.IRosMessage@(additional_interfaces_str)
 @[        elif isinstance(member.type.value_type, AbstractWString)]@
               // TODO: Unicode types are not supported
 @[        else]@
-              @(get_field_name(type_name, member.name)).Add(new @(get_dotnet_type(member.type.value_type))());
+              @(get_field_name(type_name, member.name)).Add(new @(get_dart_type(member.type.value_type))());
               @(get_field_name(type_name, member.name))[i__local_variable].__ReadFromHandle(native_get_field_@(member.name)_message(messageHandle, i__local_variable));
 @[        end if]
           }
@@ -372,19 +372,19 @@ public class @(type_name) : global::ROS2.IRosMessage@(additional_interfaces_str)
     }
 
 @[for constant in message.constants]@
-    public const @(get_dotnet_type(constant.type)) @(constant.name) =
+    public const @(get_dart_type(constant.type)) @(constant.name) =
         @(constant_value_to_dotnet(constant.type, constant.value));
 @[end for]@
 
 @[for member in message.structure.members]@
 @[    if isinstance(member.type, Array)]@
-    public @(get_dotnet_type(member.type.value_type))[] @(get_field_name(type_name, member.name)) { get; set; }
+    public @(get_dart_type(member.type.value_type))[] @(get_field_name(type_name, member.name)) { get; set; }
 @[    elif isinstance(member.type, AbstractSequence)]@
-    public List<@(get_dotnet_type(member.type.value_type))> @(get_field_name(type_name, member.name)) { get; set; }
+    public List<@(get_dart_type(member.type.value_type))> @(get_field_name(type_name, member.name)) { get; set; }
 @[    elif isinstance(member.type, AbstractWString)]@
 // TODO: Unicode types are not supported
 @[    else]@
-    public @(get_dotnet_type(member.type)) @(get_field_name(type_name, member.name)) { get; set; }
+    public @(get_dart_type(member.type)) @(get_field_name(type_name, member.name)) { get; set; }
 @[    end if]@
 @[end for]@
 
